@@ -32,7 +32,9 @@ function Login() {
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('role', data.role)
 
-                navigate('/')
+                console.log('Token saved' , data.token)
+
+                navigate('/home')
             }else{
                 alert("Login failed: " + JSON.stringify(data))
             }
