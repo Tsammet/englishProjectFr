@@ -7,6 +7,9 @@ function Register() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [age, setAge] = useState("");
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -17,6 +20,9 @@ function Register() {
         formData.append("username", username);
         formData.append("email", email);
         formData.append("password", password);
+        formData.append("first_name", firstName);
+        formData.append("last_name", lastName);
+        formData.append("age", age);
 
         fetch("http://127.0.0.1:8000/user/register", {
             method: 'POST',
@@ -50,6 +56,36 @@ function Register() {
                             name="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            required />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="firstName">First Name:</label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            required />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="lastName">Last Name:</label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            required />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="age">Age:</label>
+                        <input
+                            type="number"
+                            id="age"
+                            name="age"
+                            value={age}
+                            onChange={(e) => setAge(e.target.value)}
                             required />
                     </div>
                     <div className="input-group">

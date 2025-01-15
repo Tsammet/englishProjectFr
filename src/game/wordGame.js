@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import './wordGame.css'
+import './wordGame.css';
 
 function WordGame() {
     const [step, setStep] = useState(1);
-    const [count, setCount] = useState(5);
     const [category, setCategory] = useState("");
     const [words, setWords] = useState([]);
     const [currentWord, setCurrentWord] = useState(null);
     const [answer, setAnswer] = useState("");
     const [score, setScore] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(5);
+    const [timeLeft, setTimeLeft] = useState(60);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
     useEffect(() => {
         let timer;
-        if (timeLeft > 0 && step === 3) {
+        if (timeLeft > 0 && step === 2) {
             timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
         } else if (timeLeft === 0) {
-            changeWord();
+            endGame();
         }
         return () => clearTimeout(timer);
     }, [timeLeft, step]);
 
     const fetchWords = () => {
-        fetch(`http://localhost:8000/eW/words/get_random/?count=${count}&category=${encodeURIComponent(category)}`, {
+        fetch(`http://localhost:8000/eW/words/get_random/?category=${encodeURIComponent(category)}`, {
             headers: {
                 Authorization: `Token ${token}`,
             },
@@ -38,62 +37,47 @@ function WordGame() {
                 return response.json();
             })
             .then((data) => {
+                if (data.length === 0) {
+                    throw new Error("No words found for the selected category.");
+                }
                 setWords(data);
                 setCurrentWord(data[0]);
-                setTimeLeft(10);
-                setStep(3); 
+                setStep(2); 
             })
             .catch((error) => setError(error.message));
     };
 
     const changeWord = () => {
-        if (words.length === 1) {
-            if (answer.toLowerCase() === currentWord.meaning.toLowerCase()) {
-                setScore(score + 1);
-            }
-            alert(`Game Over! Your score is: ${score + 1}`);
-            navigate("/home");
-            return;
-        }
-
         if (words.length > 1) {
             const remainingWords = words.slice(1);
             setWords(remainingWords);
             setCurrentWord(remainingWords[0]);
-            setTimeLeft(10); 
+        } else {
+            fetchWords(); 
         }
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (answer.toLowerCase() === currentWord.meaning.toLowerCase()) {
-            setScore(score + 1);
+        if (timeLeft > 0) { 
+            if (answer.toLowerCase() === currentWord.meaning.toLowerCase()) {
+                setScore(score + 1);
+            } else {
+                setScore(score - 1);
+            }
+            setAnswer("");
+            changeWord();
         }
-        setAnswer("");
-        changeWord();
+    };
+
+    const endGame = () => {
+        alert(`Game Over! Your score is: ${score}`);
+        navigate("/wordGame");
     };
 
     return (
         <div className="game-container">
             {step === 1 && (
-                <div className="settings">
-                    <h2>Select Number of Words</h2>
-                    <div className="input-group">
-                        <label htmlFor="count">Number of Words:</label>
-                        <input
-                            type="number"
-                            id="count"
-                            value={count}
-                            onChange={(e) => setCount(e.target.value)}
-                            min="1"
-                            max="10"
-                        />
-                    </div>
-                    <button onClick={() => setStep(2)}>Next</button>
-                </div>
-            )}
-
-            {step === 2 && (
                 <div className="settings">
                     <h2>Select Category</h2>
                     <div className="input-group">
@@ -106,10 +90,11 @@ function WordGame() {
                         />
                     </div>
                     <button onClick={fetchWords}>Start Game</button>
+                    {error && <p className="error">{error}</p>}
                 </div>
             )}
 
-            {step === 3 && currentWord && (
+            {step === 2 && currentWord && (
                 <div className="game-play">
                     <h3>Time Left: {timeLeft}s</h3>
                     <p>Word: {currentWord.word}</p>
@@ -120,16 +105,15 @@ function WordGame() {
                             value={answer}
                             onChange={(e) => setAnswer(e.target.value)}
                             required
+                            disabled={timeLeft === 0}
                         />
-                        <button type="submit">Submit</button>
+                        <button type="submit" disabled={timeLeft === 0}>Submit</button>
                     </form>
                     <p>Score: {score}</p>
                 </div>
             )}
-
-            {error && <p className="error">{error}</p>}
         </div>
     );
 }
-    
+
 export default WordGame;
