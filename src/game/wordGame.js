@@ -72,7 +72,36 @@ function WordGame() {
 
     const endGame = () => {
         alert(`Game Over! Your score is: ${score}`);
-        navigate("/wordGame");
+        
+        // Enviar la puntuación y la categoría al backend
+        const gameData = {
+            score: score,
+            category: category,
+        };
+
+        fetch("http://localhost:8000/eW/game_score/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${token}`,
+            },
+            body: JSON.stringify(gameData),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Error saving game score");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log("Game score saved successfully:", data);
+                navigate("/wordGame");
+            })
+            .catch((error) => {
+                console.error("Error saving game score:", error);
+            });
+
+            console.log(gameData)
     };
 
     return (

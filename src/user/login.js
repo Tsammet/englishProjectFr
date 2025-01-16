@@ -29,12 +29,15 @@ function Login() {
         .then(data => {
             console.log('AAAAAAAAAAAAAA', data)
             if(data.token){
+                console.log("User data:", data);
+
                 localStorage.setItem('username', data.username)
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('role', data.role)
                 localStorage.setItem('first_name', data.first_name);
                 localStorage.setItem('last_name', data.last_name);
                 localStorage.setItem('age', data.age);
+                localStorage.setItem('user_id', data.userid);
                 console.log('Token saved' , data.token)
 
                 navigate('/home')
