@@ -45,76 +45,77 @@ function Register() {
 
     return (
         <div className="container">
-            <div className="form-container">
-                <h2>Register</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="input-group">
-                        <label htmlFor="username">User:</label>
-                        <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required />
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="firstName">First Name:</label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            name="firstName"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                            required />
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="lastName">Last Name:</label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            name="lastName"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                            required />
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="age">Age:</label>
-                        <input
-                            type="number"
-                            id="age"
-                            name="age"
-                            value={age}
-                            onChange={(e) => setAge(e.target.value)}
-                            required />
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required />
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="password">Password:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required />
-                    </div>
-                    <button type="submit">Register</button>
-                </form>
-            </div>
-            <div className="image-container">
-                <img src="/images/registerImage.jpg" alt="Imagen de ejemplo" />
 
+            <div className="content-wrapper">
+
+                <div className="imageAccess">
+                    <img alt="backgrond" src="/images/fondoAccess.png"></img>
+                </div>
+
+                <div className="login-box">
+                    
+                    <h1>Register</h1>
+
+                    <form id="registerForm" onSubmit={handleSubmit}>
+                            <input
+                                type="text"
+                                placeholder="Username"
+                                id="username"
+                                name="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required />
+
+                            <input
+                                type="text"
+                                placeholder="First Name"
+                                id="firstName"
+                                name="firstName"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                required />
+                        
+                            <input
+                                type="text"
+                                placeholder="Last Name"
+                                id="lastName"
+                                name="lastName"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                required />
+
+                            <input
+                                type="number"
+                                placeholder="Age"
+                                id="age"
+                                name="age"
+                                value={age}
+                                onChange={(e) => setAge(e.target.value)}
+                                required />
+
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                id="email"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required />
+
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                id="password"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required />
+
+                        <button type="submit" className="btn btn-primary">Register</button>
+                    </form>
+                </div>
             </div>
+            
         </div>
     )
 

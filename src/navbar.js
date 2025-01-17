@@ -26,16 +26,18 @@ function Navbar() {
 
     return (
         <nav className="navbar">
-            <div className="navbar-logo">Tsammet' School</div>
+            <div className="navbar-logo">SC' School</div>
             <ul className="navbar-links">
                    {!isLoggedIn && <li><a href="/register">Register</a></li>}
                 {!isLoggedIn && <li><a href="/login">Login</a></li>}
                 {isLoggedIn && (
-                    <li>
-                        <a href="/profile" >Profile</a>
-                        <a href="/wordGame" >Game</a>
-                        <a href="/logout" onClick={handleLogout}>LogOut</a>
-                    </li>
+                    <>
+                        <li><a href="/profile" >Profile</a></li>
+                        <li><a href="/wordGame" >Game</a></li>
+                        <li><a href="/Home" >Home</a></li>
+                        <li><a href="/logout" onClick={handleLogout}>LogOut</a></li>
+                    </>
+                    
                 )}
             </ul>
         </nav>

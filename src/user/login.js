@@ -37,7 +37,7 @@ function Login() {
                 localStorage.setItem('first_name', data.first_name);
                 localStorage.setItem('last_name', data.last_name);
                 localStorage.setItem('age', data.age);
-                localStorage.setItem('user_id', data.userid);
+                localStorage.setItem('user_id', data.user_id);
                 console.log('Token saved' , data.token)
 
                 navigate('/home')
@@ -51,35 +51,40 @@ function Login() {
 
     return (
         <div className="container">
-            <div className="form-container">
-                <h2>Login</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="input-group">
-                        <label htmlFor="username">User:</label>
+
+            <div className="content-wrapper">
+
+                <div className="imageAccess">
+                    <img alt="backgrond" src="/images/fondoAccess.png"></img>
+                </div>
+
+                <div className="login-box">
+
+                    <h1>Login</h1>
+
+                    <form id="loginForm" onSubmit={handleSubmit}>
+                        
                         <input
                             type="text"
+                            placeholder="Username"
                             id="username"
                             name="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required />
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="password">Password:</label>
+                        
                         <input
                             type="password"
+                            placeholder="Password"
                             id="password"
                             name="password"
                             value = {password}
                             onChange={(e) => setPassword(e.target.value)}
                             required />
-                    </div>
-                    <button type="submit">Log in</button >
-                </form>
-            </div>
-            <div className="image-container">
-                <img src="/images/registerImage.jpg" alt="Imagen de ejemplo" />
-
+                            
+                            <button type="submit" className="btn btn-primary">Log in</button >
+                    </form>
+                </div>
             </div>
         </div>
     )
