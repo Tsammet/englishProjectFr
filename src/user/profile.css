@@ -1,102 +1,240 @@
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.5;
-    color: #333;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    margin-top: 50px;
-}
-.container {
+.contenedor {
+    font-family: Arial, sans-serif;
+    margin-top: 50%;    
     max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #fff;
+    padding: 20px;
+    background-color: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-h1, h2 {
-    color: #2d3748;
+
+header h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.info-usuario {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.foto-perfil {
+    flex-shrink: 0;
     text-align: center;
 }
-.profile-content {
+
+.foto-perfil img {
+    border: 3px solid #ccc;
+}
+
+.detalles-usuario {
+    font-size: 1.2em;
+}
+
+.detalles-usuario h2 {
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.detalles-usuario p {
+    margin: 5px 0;
+}
+
+.actualizar-perfil {
+    margin-bottom: 30px;
+}
+
+.actualizar-perfil h3 {
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.actualizar-perfil form {
     display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 15px;
 }
-.profile-photo {
-    flex: 0 0 200px;
-    text-align: center;
+
+.actualizar-perfil label {
+    font-weight: bold;
 }
-.profile-photo img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #4299e1;
+
+.actualizar-perfil input[type="file"] {
+    padding: 5px;
 }
-.change-photo {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #4299e1;
-    color: #fff;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 0.875rem;
-}
-.change-photo:hover {
-    background-color: #3182ce;
-}
-.profile-info {
-    flex: 1;
-    min-width: 300px;
-}
-.info-item {
-    margin-bottom: 0.5rem;
-}
-.info-item strong {
-    display: inline-block;
-    width: 120px;
-    color: #4299e1;
-}
-.scores {
-    margin-top: 2rem;
-}
-.score-list {
-    list-style-type: none;
-    padding: 0;
-}
-.score-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #e2e8f0;
-}
-.score-item:last-child {
-    border-bottom: none;
-}
-.add-score {
-    margin-top: 1rem;
-    display: flex;
-    gap: 0.5rem;
-}
-.add-score input {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-.add-score button {
-    padding: 0.5rem 1rem;
-    background-color: #4299e1;
-    color: #fff;
+
+.actualizar-perfil button {
+    width: fit-content;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1em;
 }
-.add-score button:hover {
-    background-color: #3182ce;
+
+.actualizar-perfil button:hover {
+    background-color: #0056b3;
+}
+
+.puntajes-juego h3 {
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.puntajes-juego table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.puntajes-juego th,
+.puntajes-juego td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.puntajes-juego th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.puntajes-juego tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Paginación */
+.paginacion {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.paginacion button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.paginacion button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.paginacion button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.foto-perfil {
+    position: relative;
+  }
+  
+  .actualizar-perfil {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    display: none;
+  }
+  
+  .foto-perfil:hover .actualizar-perfil {
+    display: block; 
+  }
+  
+
+  @media (max-width: 768px) {
+    .contenedor {
+        margin-top: 30%;
+        padding: 15px;
+        max-width: 95%;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .info-usuario {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .foto-perfil {
+        width: 100px;
+        height: 100px;
+    }
+
+    .detalles-usuario {
+        font-size: 1em;
+    }
+
+    .actualizar-perfil button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+
+    .puntajes-juego th,
+    .puntajes-juego td {
+        padding: 8px;
+    }
+
+    .paginacion button {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor {
+        margin-top: 20%;
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    .info-usuario {
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-start;
+    }
+
+    .foto-perfil {
+        width: 80px;
+        height: 80px;
+    }
+
+    .detalles-usuario {
+        font-size: 0.9em;
+    }
+
+    .actualizar-perfil button {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+
+    .puntajes-juego th,
+    .puntajes-juego td {
+        padding: 6px;
+    }
+
+    .paginacion button {
+        padding: 5px 10px;
+        font-size: 0.8em;
+    }
 }

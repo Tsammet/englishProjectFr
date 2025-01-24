@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./profile.css";
 
 function Profile() {
     const [profilePicture, setProfilePicture] = useState(null);
@@ -9,11 +10,10 @@ function Profile() {
     const [gameScores, setGameScores] = useState([]);
     const [nextPage, setNextPage] = useState(null);
     const [previousPage, setPreviousPage] = useState(null);
-    const [loading, setLoading] = useState(true); // Indicador de carga
+    const [loading, setLoading] = useState(true);
+    const [showForm, setShowForm] = useState(false);
     const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("user_id");
 
-    // Función para obtener los puntajes paginados
     const fetchGameScores = async (url) => {
         setLoading(true);
         try {
@@ -34,7 +34,6 @@ function Profile() {
         }
     };
 
-    // Cargar datos iniciales al montar el componente
     useEffect(() => {
         fetchGameScores("http://localhost:8000/eW/game_score/get_user_scores/");
     }, [token]);
@@ -73,78 +72,91 @@ function Profile() {
     };
 
     return (
-        <div>
-            <h1>Username: {localStorage.getItem("username")}</h1>
-            <h1>First Name: {firstName}</h1>
-            <h1>Last Name: {lastName}</h1>
-            <h1>Age: {age}</h1>
-
-            {imageUrl ? (
-                <img
-                    src={`http://127.0.0.1:8000${imageUrl}`}
-                    alt="Profile"
-                    style={{ width: "150px", height: "150px", borderRadius: "50%" }}
-                />
-            ) : (
-                <p>No profile picture uploaded</p>
-            )}
-
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="profile_picture">Change Profile Picture:</label>
-                    <input
-                        type="file"
-                        id="profile_picture"
-                        name="profile_picture"
-                        onChange={handleImageChange}
-                    />
-                </div>
-
-                <button type="submit">Update Profile</button>
-            </form>
-
-            <div>
-                <h3>Game Scores:</h3>
-                {loading ? (
-                    <p>Loading game scores...</p>
-                ) : gameScores.length === 0 ? (
-                    <p>No game scores available</p>
-                ) : (
-                    <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px" }}>
-                        <thead>
-                            <tr>
-                                <th>Category</th>
-                                <th>Score</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {gameScores.map((score, index) => (
-                                <tr key={index}>
-                                    <td>{score.category}</td>
-                                    <td>{score.score}</td>
-                                    <td>{new Date(score.created_at).toLocaleDateString()}</td>
+        <div className="contenedor">
+            <main>
+                <section className="info-usuario">
+                    <div
+                        className="foto-perfil"
+                        onMouseEnter={() => setShowForm(true)} 
+                        onMouseLeave={() => setShowForm(false)} 
+                    >
+                        {imageUrl ? (
+                            <img
+                                src={`http://127.0.0.1:8000${imageUrl}`}
+                                alt="Profile"
+                                style={{ width: "150px", height: "150px", borderRadius: "50%" }}
+                            />
+                        ) : (
+                            <p>No profile picture uploaded</p>
+                        )}
+                        {showForm && (
+                            <form onSubmit={handleSubmit} className="actualizar-perfil">
+                                <label htmlFor="profile_picture">Change Profile Picture:</label>
+                                <input
+                                    type="file"
+                                    id="profile_picture"
+                                    name="profile_picture"
+                                    onChange={handleImageChange}
+                                />
+                                <button type="submit">Update Profile</button>
+                            </form>
+                        )}
+                    </div>
+                    <div className="detalles-usuario">
+                        <h2 id="nombre-usuario">Username: {localStorage.getItem("username")}</h2>
+                        <p>
+                            <strong>Nombre:</strong> <span id="First Name">{firstName}</span>
+                        </p>
+                        <p>
+                            <strong>Apellido:</strong> <span id="Last Name">{lastName}</span>
+                        </p>
+                        <p>
+                            <strong>Edad:</strong> <span id="Age">{age}</span>
+                        </p>
+                    </div>
+                </section>
+                <section className="puntajes-juego">
+                    <h3>Game Scores:</h3>
+                    {loading ? (
+                        <p>Loading game scores...</p>
+                    ) : gameScores.length === 0 ? (
+                        <p>No game scores available</p>
+                    ) : (
+                        <table id="tabla-puntajes">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Score</th>
+                                    <th>Date</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
-            </div>
-
-            <div style={{ marginTop: "20px" }}>
-                <button
-                    onClick={() => fetchGameScores(previousPage)}
-                    disabled={!previousPage}
-                >
-                    Previous
-                </button>
-                <button
-                    onClick={() => fetchGameScores(nextPage)}
-                    disabled={!nextPage}
-                >
-                    Next
-                </button>
-            </div>
+                            </thead>
+                            <tbody>
+                                {gameScores.map((score, index) => (
+                                    <tr key={index}>
+                                        <td>{score.category}</td>
+                                        <td>{score.score}</td>
+                                        <td>{new Date(score.created_at).toLocaleDateString()}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </section>
+                <div className="paginacion">
+                    <button
+                        onClick={() => fetchGameScores(previousPage)}
+                        disabled={!previousPage}
+                    >
+                        Previous
+                    </button>
+                    <button
+                        onClick={() => fetchGameScores(nextPage)}
+                        disabled={!nextPage}
+                    >
+                        Next
+                    </button>
+                </div>
+            </main>
         </div>
     );
 }

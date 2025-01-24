@@ -107,21 +107,22 @@ function WordGame() {
     return (
         <div className="game-container">
             {step === 1 && (
-                <div className="settings">
-                    <h2>Select Category</h2>
-                    <div className="input-group">
-                        <label htmlFor="category">Category:</label>
-                        <input
-                            type="text"
-                            id="category"
-                            value={category}
-                            onChange={(e) => setCategory(e.target.value)}
-                        />
+                <div className="step-box">
+                    <div className="settings">
+                        <h2>Select Category</h2>
+                        <div className="input-group">
+                            <input
+                                type="text"
+                                id="category"
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                            />
+                        </div>
+                        <button onClick={fetchWords}>Start Game</button>
+                        {error && <p className="error">{error}</p>}
                     </div>
-                    <button onClick={fetchWords}>Start Game</button>
-                    {error && <p className="error">{error}</p>}
                 </div>
-            )}
+            )}  
 
             {step === 2 && currentWord && (
                 <div className="game-play">

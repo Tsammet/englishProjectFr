@@ -27,5 +27,97 @@
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
   }
+  .descripbox {
+    margin-right: 10%;
+  }
   
-  
+  .parrafoTry {
+    color: rgb(55, 120, 176);
+  }
+
+  .buttonText {
+    width: 25%;
+    align-self: center;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: rgb(24, 36, 65);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+
+button:hover {
+  background-color: rgb(55, 120, 176);
+}
+
+@media (max-width: 1024px) {
+  .title {
+      font-size: 2rem; 
+  }
+
+  .description {
+      font-size: 1rem; 
+  }
+
+  .buttonText {
+      width: 40%; 
+      font-size: 0.9rem;
+  }
+
+  .infoContainer {
+      padding: 1.5rem; 
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+      flex-direction: column;
+  }
+
+  .imageContainer {
+      order: 2; 
+      min-height: 200px;
+  }
+
+  .infoContainer {
+      order: 1;
+      padding: 1rem;
+  }
+
+  .title {
+      font-size: 1.8rem; 
+  }
+
+  .buttonText {
+      width: 50%; 
+      font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+      font-size: 1.5rem; 
+  }
+
+  .description {
+      font-size: 0.9rem;
+  }
+
+  .buttonText {
+      width: 60%; 
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+  }
+
+  .infoContainer {
+      text-align: center;
+  }
+
+  .descripbox {
+      margin-right: 0; 
+  }
+}
