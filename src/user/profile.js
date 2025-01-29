@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import "./profile.css";
-
+import './profile.css'
 function Profile() {
+    const userId = localStorage.getItem("user_id");  
+
+
     const [profilePicture, setProfilePicture] = useState(null);
-    const [imageUrl, setImageUrl] = useState(localStorage.getItem("profile_picture") || null);
+    const [imageUrl, setImageUrl] = useState(localStorage.getItem(`profile_picture_${userId}`) || null);
     const [firstName, setFirstName] = useState(localStorage.getItem("first_name"));
     const [lastName, setLastName] = useState(localStorage.getItem("last_name"));
     const [age, setAge] = useState(localStorage.getItem("age"));
     const [gameScores, setGameScores] = useState([]);
     const [nextPage, setNextPage] = useState(null);
     const [previousPage, setPreviousPage] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [showForm, setShowForm] = useState(false);
+    const [loading, setLoading] = useState(true); 
     const token = localStorage.getItem("token");
 
     const fetchGameScores = async (url) => {
@@ -59,9 +60,13 @@ function Profile() {
         })
             .then((response) => response.json())
             .then((data) => {
+                console.log("Perfil recibido:", data);
+                console.log("Perfil recibido:", imageUrl);
+
                 if (data.profile_picture) {
+                    const userId = localStorage.getItem("user_id")
                     setImageUrl(data.profile_picture);
-                    localStorage.setItem("profile_picture", data.profile_picture);
+                    localStorage.setItem(`profile_picture_${userId}`, data.profile_picture);
                 }
                 alert("Profile updated successfully");
             })
@@ -75,11 +80,7 @@ function Profile() {
         <div className="contenedor">
             <main>
                 <section className="info-usuario">
-                    <div
-                        className="foto-perfil"
-                        onMouseEnter={() => setShowForm(true)} 
-                        onMouseLeave={() => setShowForm(false)} 
-                    >
+                    <div className="foto-perfil">
                         {imageUrl ? (
                             <img
                                 src={`http://127.0.0.1:8000${imageUrl}`}
@@ -88,18 +89,6 @@ function Profile() {
                             />
                         ) : (
                             <p>No profile picture uploaded</p>
-                        )}
-                        {showForm && (
-                            <form onSubmit={handleSubmit} className="actualizar-perfil">
-                                <label htmlFor="profile_picture">Change Profile Picture:</label>
-                                <input
-                                    type="file"
-                                    id="profile_picture"
-                                    name="profile_picture"
-                                    onChange={handleImageChange}
-                                />
-                                <button type="submit">Update Profile</button>
-                            </form>
                         )}
                     </div>
                     <div className="detalles-usuario">
@@ -115,6 +104,23 @@ function Profile() {
                         </p>
                     </div>
                 </section>
+                
+                <section className="actualizar-foto-perfil">
+                    <h3>Change Profile Picture:</h3>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor="profile_picture">Choose a new profile picture:</label>
+                            <input
+                                type="file"
+                                id="profile_picture"
+                                name="profile_picture"
+                                onChange={handleImageChange}
+                            />
+                        </div>
+                        <button type="submit">Update Profile</button>
+                    </form>
+                </section>
+    
                 <section className="puntajes-juego">
                     <h3>Game Scores:</h3>
                     {loading ? (
@@ -142,6 +148,7 @@ function Profile() {
                         </table>
                     )}
                 </section>
+                
                 <div className="paginacion">
                     <button
                         onClick={() => fetchGameScores(previousPage)}
@@ -159,6 +166,7 @@ function Profile() {
             </main>
         </div>
     );
+    
 }
 
 export default Profile;

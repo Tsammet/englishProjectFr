@@ -1,6 +1,6 @@
 .contenedor {
     font-family: Arial, sans-serif;
-    margin-top: 50%;    
+    margin-top: 80%;    
     max-width: 800px;
     padding: 20px;
     background-color: #f9f9f9;
@@ -154,7 +154,49 @@ header h1 {
   .foto-perfil:hover .actualizar-perfil {
     display: block; 
   }
-  
+  .actualizar-foto-perfil {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.actualizar-foto-perfil h3 {
+    font-size: 1.5em;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.actualizar-foto-perfil form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.actualizar-foto-perfil label {
+    font-weight: bold;
+}
+
+.actualizar-foto-perfil input[type="file"] {
+    padding: 5px;
+}
+
+.actualizar-foto-perfil button {
+    width: fit-content;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.actualizar-foto-perfil button:hover {
+    background-color: #0056b3;
+}
+
 
   @media (max-width: 768px) {
     .contenedor {
