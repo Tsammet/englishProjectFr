@@ -1,9 +1,11 @@
 import React from "react";
 import './home.css'
+import { useNavigate } from "react-router-dom";
 function Home(){
+  const navigate = useNavigate()
   
   const handleClick = () => {
-    window.location.href = "/wordGame";
+    navigate("/wordGame")
   };
 
   return (

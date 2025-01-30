@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import './navbar.css';
+import { useNavigate } from "react-router-dom";
 
 
 function Navbar() {
+
+    const navigate = useNavigate()
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -22,6 +25,7 @@ function Navbar() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         setIsLoggedIn(false);
+        navigate('/login')
     };
 
     return (
