@@ -27,9 +27,7 @@ function Login() {
             return response.json();
         })
         .then(data => {
-            console.log('AAAAAAAAAAAAAA', data)
             if(data.token){
-                console.log("User data:", data);
 
                 localStorage.setItem('username', data.username)
                 localStorage.setItem('token', data.token)
